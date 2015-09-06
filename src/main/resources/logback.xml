@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- configuration file for LogBack (slf4J implementation)
+See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-through-the-java-loggers/ -->
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    <!-- To enable JMX Management -->
+    <jmxConfigurator />
+    
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>.%d{HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg %n</Pattern>
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+				<level>TRACE</level>
+			</filter>
+        </encoder>
+    </appender>
+    
+    <appender name="protoDailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>/logs/proto/ust-proto.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		    <FileNamePattern>ust-proto.%d{yyyy-MM-dd}.log</FileNamePattern>
+ 			<maxHistory>180</maxHistory>			
+		</rollingPolicy>
+ 		<encoder>
+			<Pattern>%d{yy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{35} - %msg %n</Pattern>
+		</encoder> 	    
+  	</appender>
+  	
+  	<appender name="mybatisDailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>/logs/proto/ust-mybatis.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		    <FileNamePattern>ust-mybatis.%d{yyyy-MM-dd}.log</FileNamePattern>
+ 			<maxHistory>180</maxHistory>			
+		</rollingPolicy>
+ 		<encoder>
+			<Pattern>%d{yy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{35} - %msg %n</Pattern>
+		</encoder> 	    
+  	</appender>
+  	
+  	<appender name="springDailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>/logs/proto/ust-spring.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		    <FileNamePattern>ust-spring.%d{yyyy-MM-dd}.log</FileNamePattern>
+ 			<maxHistory>180</maxHistory>			
+		</rollingPolicy>
+ 		<encoder>
+			<Pattern>%d{yy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{35} - %msg %n</Pattern>
+		</encoder> 	    
+  	</appender>
+  	
+  	<logger name="org.springframework" additivity="false">
+	    <level value="DEBUG" />
+		<appender-ref ref="springDailyRollingFileAppender"/>
+		<appender-ref ref="consoleAppender" />
+	</logger>
+  	
+  	<logger name="org.apache.commons.dbcp" additivity="false">
+	    <level value="DEBUG" />
+		<appender-ref ref="mybatisDailyRollingFileAppender"/>
+		<appender-ref ref="consoleAppender" />
+	</logger>
+  	
+  	<logger name="org.apache.ibatis" additivity="false">
+	    <level value="DEBUG" />
+		<appender-ref ref="mybatisDailyRollingFileAppender"/>
+		<appender-ref ref="consoleAppender" />
+	</logger>
+	
+	<logger name="org.mybatis" additivity="false">
+	    <level value="DEBUG" />
+		<appender-ref ref="mybatisDailyRollingFileAppender"/>
+		<appender-ref ref="consoleAppender" />
+	</logger>
+  	
+  	<logger name="com.proto.net" additivity="false">
+	    <level value="DEBUG" />
+		<appender-ref ref="protoDailyRollingFileAppender"/>
+		<appender-ref ref="consoleAppender" />
+	</logger>
+         
+    <root level="info">
+        <appender-ref ref="console"/>
+    </root>
+    
+    <shutdownHook />
+    
+</configuration>

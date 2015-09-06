@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.proto.net.aron.mapper.aronMapper">
+	
+	
+	<select id="getListAron" resultType="com.proto.net.aron.dto.aronDto" useCache="true">
+    	SELECT id, name FROM aron
+	</select>
+  
+	<insert id="insertAron" parameterType="com.proto.net.aron.dto.aronDto">
+		INSERT INTO aron (id, name) VALUES (#{id}, #{name})
+	</insert>
+ 
+	<update id="updateAron" parameterType="com.proto.net.aron.dto.aronDto">
+		UPDATE aron SET name = #{name} WHERE id = #{id}
+	</update>
+	
+</mapper>

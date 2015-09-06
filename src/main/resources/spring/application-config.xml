@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+    
+    <context:property-placeholder location="classpath:database.properties"/>
+    
+    <context:component-scan base-package="com.proto.net" >
+    	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+   
+   
+    
+   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    	<property name="driverClassName" value="${database.aron.driverClassName}"/>
+    	<property name="url" value="${database.aron.url}"/>
+    	<property name="username" value="${database.aron.username}"/>
+    	<property name="password" value="${database.aron.password}"/>
+    	<property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="true"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="timeBetweenEvictionRunsMillis" value="1800000"/>
+        <property name="numTestsPerEvictionRun" value="3"/>
+        <property name="minEvictableIdleTimeMillis" value="1800000"/>
+        <property name="validationQuery" value="SELECT 1"/>
+    </bean>
+    
+	<context:annotation-config/>
+	
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+  		<property name="dataSource" 		ref="dataSource" />
+  		<property name="configLocation" 	value="classpath:mybatis/mybatis-config.xml"/>
+  		<property name="mapperLocations">
+  			<list>
+  				<value>classpath:mybatis/mappers/aron/aron.xml</value>
+  				
+  			</list>
+  		</property>
+  		
+  	</bean>
+	
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- mybatis mapper auto scanning -->
+	<bean id="dsAronScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.proto.net.aron.mapper" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+		
+	</bean>
+	
+	
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+  		<property name="dataSource" ref="dataSource" />
+	</bean>
+    
+    
+    
+     <bean id="dataSource_mose" class="org.apache.commons.dbcp.BasicDataSource">
+    	<property name="driverClassName" value="${database.mose.driverClassName}"/>
+    	<property name="url" value="${database.mose.url}"/>
+    	<property name="username" value="${database.mose.username}"/>
+    	<property name="password" value="${database.mose.password}"/>
+	    <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="true"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="timeBetweenEvictionRunsMillis" value="1800000"/>
+        <property name="numTestsPerEvictionRun" value="3"/>
+        <property name="minEvictableIdleTimeMillis" value="1800000"/>
+        <property name="validationQuery" value="SELECT 1"/>
+    </bean>
+    
+    <bean id="sqlSessionFactory_mose" class="org.mybatis.spring.SqlSessionFactoryBean">
+  		<property name="dataSource" 		ref="dataSource_mose" />
+  		<property name="configLocation" 	value="classpath:mybatis/mybatis-config.xml"/>
+  		<property name="mapperLocations">
+  			<list>
+  				<value>classpath:mybatis/mappers/mose/mose.xml</value>
+  			</list>
+  		</property>
+  		
+  	</bean>
+	
+	<bean id="sqlSessionTemplate_mose" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory_mose" />
+	</bean>
+	
+	<!-- mybatis mapper auto scanning -->
+	<bean id="dsMoseScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.proto.net.mose.mapper" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory_mose"/>
+	</bean>
+	
+	
+	<bean id="transactionManager_mose" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+  		<property name="dataSource" ref="dataSource_mose" />
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager_mose" proxy-target-class="true" />
+	
+	<context:component-scan base-package="com.proto.net.aron.service,com.proto.net.mose.service" />
+	
+</beans>
+

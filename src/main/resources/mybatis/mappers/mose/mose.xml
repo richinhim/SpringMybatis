@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.proto.net.mose.mapper.moseMapper">
+	
+	
+	<select id="getListMose" resultType="com.proto.net.mose.dto.moseDto" useCache="true">
+    	SELECT id, name FROM mose
+	</select>
+  
+	<insert id="insertMose" parameterType="com.proto.net.mose.dto.moseDto">
+		INSERT INTO mose (id, name) VALUES (#{id}, #{name})
+	</insert>
+ 
+	<update id="updateMose" parameterType="com.proto.net.mose.dto.moseDto">
+		UPDATE mose SET name = #{name} WHERE id = #{id}
+	</update>
+	
+</mapper>

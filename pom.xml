@@ -1,0 +1,344 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.proto.net</groupId>
+  <artifactId>ProtoMybatisProject</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  
+    <properties>
+
+		<!-- Generic properties -->
+		<java.version>1.8</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+  		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		
+		<!-- Web -->
+		<jsp.version>2.2</jsp.version>
+		<jstl.version>1.2</jstl.version>
+		<servlet.version>2.5</servlet.version>
+
+		<!-- Spring -->
+		<spring-framework.version>4.2.0.RELEASE</spring-framework.version>
+		<spring-security.version>4.0.2.RELEASE</spring-security.version>
+		<spring-security-oauth.version>2.0.7.RELEASE</spring-security-oauth.version>
+		
+		<!-- Aspectj -->
+		<aspectj.version>1.8.6</aspectj.version>
+		
+		<!-- MyBatis -->
+		<mybatis.version>3.3.0</mybatis.version>
+		<mybatis-spring.version>1.2.3</mybatis-spring.version>
+		<mybatis-redis.version>1.0.0-beta1</mybatis-redis.version>
+		
+		<!-- Mariadb -->
+		<mariadb-client.version>1.2.0</mariadb-client.version>
+		
+		<!-- HikariCP -->
+		<hikaricp.version>2.3.9</hikaricp.version>
+		
+		<!-- Jackson -->
+		<jackson.version>2.6.1</jackson.version>
+		
+		<!-- Tiles -->
+		<tiles.version>3.0.5</tiles.version>
+		
+		<!-- Apache POI -->
+		<apache-poi.version>3.12</apache-poi.version>
+		
+		<!-- MQTT -->
+		<mqtt.version>1.0.2</mqtt.version>
+		<mqtt-spring.version>4.1.6.RELEASE</mqtt-spring.version>
+			
+		<!-- Logging -->
+		<logback.version>1.0.13</logback.version>
+		<slf4j.version>1.7.5</slf4j.version>
+
+		<!-- Test -->
+		<junit.version>4.11</junit.version>
+
+	</properties>
+	
+	<repositories>
+	  	<repository>
+	        <id>io.spring.repo.maven.release</id>
+	        <url>http://repo.spring.io/release/</url>
+	        <snapshots><enabled>false</enabled></snapshots>
+	    </repository>
+	  	<repository>
+	  		<id>Eclipse Paho Repo</id>
+	  		<url>https://repo.eclipse.org/content/repositories/paho-releases/</url>
+	  	</repository>
+  	</repositories>
+	
+	<dependencies>
+	
+		<!-- Spring MVC -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		
+		<dependency>
+	    	<groupId>org.springframework</groupId>
+	    	<artifactId>spring-jdbc</artifactId>
+	    	<version>${spring-framework.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.springframework</groupId>
+	    	<artifactId>spring-websocket</artifactId>
+	    	<version>${spring-framework.version}</version>
+	    </dependency>
+		
+		<dependency>
+	    	<groupId>org.springframework</groupId>
+	    	<artifactId>spring-orm</artifactId>
+	    	<version>${spring-framework.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.springframework</groupId>
+	    	<artifactId>spring-oxm</artifactId>
+	    	<version>${spring-framework.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.springframework.security</groupId>
+	    	<artifactId>spring-security-web</artifactId>
+	    	<version>${spring-security.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.springframework.security</groupId>
+	    	<artifactId>spring-security-aspects</artifactId>
+	    	<version>${spring-security.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.springframework.security</groupId>
+	    	<artifactId>spring-security-config</artifactId>
+	    	<version>${spring-security.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.springframework.security</groupId>
+	    	<artifactId>spring-security-acl</artifactId>
+	    	<version>${spring-security.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.springframework.security</groupId>
+	    	<artifactId>spring-security-taglibs</artifactId>
+	    	<version>${spring-security.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.springframework.security</groupId>
+	    	<artifactId>spring-security-crypto</artifactId>
+	    	<version>${spring-security.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.springframework.security</groupId>
+	    	<artifactId>spring-security-rsa</artifactId>
+	    	<version>1.0.1.RELEASE</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.springframework.security.oauth</groupId>
+	    	<artifactId>spring-security-oauth2</artifactId>
+	    	<version>${spring-security-oauth.version}</version>
+	    </dependency>
+		
+		<!-- MyBatis -->
+		<dependency>
+	    	<groupId>org.mybatis</groupId>
+	    	<artifactId>mybatis</artifactId>
+	    	<version>${mybatis.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.mybatis</groupId>
+	    	<artifactId>mybatis-spring</artifactId>
+	    	<version>${mybatis-spring.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.mybatis.caches</groupId>
+	    	<artifactId>mybatis-redis</artifactId>
+	    	<version>${mybatis-redis.version}</version>
+	    </dependency>		
+	    
+	    <dependency>
+	    	<groupId>org.mariadb.jdbc</groupId>
+	    	<artifactId>mariadb-java-client</artifactId>
+	    	<version>${mariadb-client.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>com.zaxxer</groupId>
+	    	<artifactId>HikariCP</artifactId>
+	    	<version>${hikaricp.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>com.fasterxml.jackson.datatype</groupId>
+	    	<artifactId>jackson-datatype-jdk8</artifactId>
+	    	<version>${jackson.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.apache.tiles</groupId>
+	    	<artifactId>tiles-jsp</artifactId>
+	    	<version>${tiles.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.apache.poi</groupId>
+	    	<artifactId>poi</artifactId>
+	    	<version>${apache-poi.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.apache.directory.studio</groupId>
+	    	<artifactId>org.apache.commons.io</artifactId>
+	    	<version>2.4</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.springframework.integration</groupId>
+	    	<artifactId>spring-integration-mqtt</artifactId>
+	    	<version>${mqtt-spring.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.eclipse.paho</groupId>
+	    	<artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+	    	<version>${mqtt.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.springframework.data</groupId>
+	    	<artifactId>spring-data-mongodb</artifactId>
+	    	<version>1.7.2.RELEASE</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.mongodb</groupId>
+	    	<artifactId>mongodb-driver</artifactId>
+	    	<version>3.0.3</version>
+	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.apache.httpcomponents</groupId>
+	    	<artifactId>httpclient</artifactId>
+	    	<version>4.5</version>
+	    </dependency>
+	    
+		<!-- Other Web dependencies -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jstl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>${jsp.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	
+		<!-- Spring and Transactions -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+
+		<!-- Logging with SLF4J & LogBack -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		
+		<!-- Test Artifacts -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring-framework.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+		
+		<dependency>
+            <groupId>net.sf.flexjson</groupId>
+            <artifactId>flexjson</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.0.0.GA</version>
+        </dependency>
+        <dependency>
+        	<groupId>javax.annotation</groupId>
+        	<artifactId>javax.annotation-api</artifactId>
+        	<version>1.2</version>
+        </dependency>
+         <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>xml-apis</groupId>
+                    <artifactId>xml-apis</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
+		</dependency>
+	</dependencies>	
+	
+	
+</project>
