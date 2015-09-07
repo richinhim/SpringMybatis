@@ -16,11 +16,13 @@
     
     <context:property-placeholder location="classpath:database.properties"/>
     
+    
     <context:component-scan base-package="com.proto.net" >
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
     	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
    
-   
+   <context:annotation-config/>
     
    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
     	<property name="driverClassName" value="${database.aron.driverClassName}"/>
@@ -36,17 +38,20 @@
         <property name="validationQuery" value="SELECT 1"/>
     </bean>
     
-	<context:annotation-config/>
+	
 	
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
   		<property name="dataSource" 		ref="dataSource" />
   		<property name="configLocation" 	value="classpath:mybatis/mybatis-config.xml"/>
-  		<property name="mapperLocations">
+  		<property name="mapperLocations" value="classpath:mybatis/mappers/aron/*.xml"/>
+  			<!-- 
+  			<property name="mapperLocations">
   			<list>
   				<value>classpath:mybatis/mappers/aron/aron.xml</value>
   				
   			</list>
   		</property>
+  		-->
   		
   	</bean>
 	
@@ -55,12 +60,14 @@
 	</bean>
 	
 	<!-- mybatis mapper auto scanning -->
+	<!-- 
 	<bean id="dsAronScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.proto.net.aron.mapper" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 		
 	</bean>
-	
+	-->
+	<mybatis:scan base-package="com.proto.net.aron.mapper" factory-ref="sqlSessionFactory"  />
 	
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
 	
@@ -87,12 +94,14 @@
     <bean id="sqlSessionFactory_mose" class="org.mybatis.spring.SqlSessionFactoryBean">
   		<property name="dataSource" 		ref="dataSource_mose" />
   		<property name="configLocation" 	value="classpath:mybatis/mybatis-config.xml"/>
+  		<property name="mapperLocations" value="classpath:mybatis/mappers/mose/*.xml"/>
+  		<!-- 
   		<property name="mapperLocations">
   			<list>
   				<value>classpath:mybatis/mappers/mose/mose.xml</value>
   			</list>
   		</property>
-  		
+  		-->
   	</bean>
 	
 	<bean id="sqlSessionTemplate_mose" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
@@ -100,18 +109,21 @@
 	</bean>
 	
 	<!-- mybatis mapper auto scanning -->
+	<!-- 
 	<bean id="dsMoseScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.proto.net.mose.mapper" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory_mose"/>
 	</bean>
-	
+	-->
 	
 	<bean id="transactionManager_mose" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
   		<property name="dataSource" ref="dataSource_mose" />
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager_mose" proxy-target-class="true" />
 	
+	<!-- 
 	<context:component-scan base-package="com.proto.net.aron.service,com.proto.net.mose.service" />
-	
+	-->
+	<mybatis:scan base-package="com.proto.net.mose.mapper" factory-ref="sqlSessionFactory_mose"  />
 </beans>
 

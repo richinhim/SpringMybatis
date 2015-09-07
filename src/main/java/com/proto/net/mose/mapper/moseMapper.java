@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import com.proto.net.mose.dto.moseDto;
 
-@Resource(name = "dsMoseScanner")
+//@Resource(name = "dsMoseScanner")
 public interface moseMapper {
 
 	public List<moseDto> getListMose();

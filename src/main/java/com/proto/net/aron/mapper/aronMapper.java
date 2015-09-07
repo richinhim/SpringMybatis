@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import com.proto.net.aron.dto.aronDto;
 
-@Resource(name = "dsAronScanner")
+//@Resource(name = "dsAronScanner")
 public interface aronMapper {
 
 	public List<aronDto> getListAron();

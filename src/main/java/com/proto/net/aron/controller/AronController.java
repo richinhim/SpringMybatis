@@ -6,6 +6,7 @@ import javax.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
 import com.proto.net.aron.service.IAronService;
@@ -16,7 +17,7 @@ public class AronController {
 	private static Logger logger = null;
 	
 	@Autowired
-	//@Qualifier("aronService")
+	@Qualifier("aronService")
 	IAronService aronService;
 
 	@PostConstruct
